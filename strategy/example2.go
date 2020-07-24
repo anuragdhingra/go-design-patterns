@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-// =========================== ANALYZER =================================
+// Analyzer is to tokenize and pre-process the queries
 type Analyzer interface {
 	Analyze(string) string
 }
@@ -23,9 +23,7 @@ func (icu icuAnalyzer) Analyze(query string) string {
 	return fmt.Sprintf("You are using icu analyzer for %s", query)
 }
 
-// ======================================================================
-
-// =========================== SEARCHER =================================
+// Searcher is to fetch search results from Search engine
 type Searcher interface {
 	Search(string) string
 }
@@ -46,9 +44,7 @@ func (solr solrSearch) Search(query string) (results string) {
 	return fmt.Sprintf("You are using Solr search at endpoint: %s for query: %s", solr.address, query)
 }
 
-// ======================================================================
-
-// =========================== METADATA FETCHER =================================
+// Metadata Fetcher is to retreive metadata from queries
 type MetadataFetcher interface {
 	Metadata(string) string
 }
@@ -65,9 +61,6 @@ func (sf spacyFetcher) Metadata(query string) string {
 	return fmt.Sprintf("you are using spacy fetcher for %s", query)
 }
 
-// ======================================================================
-
-// ======================================================================
 type searchEngine struct {
 	analyzer        Analyzer
 	searcher        Searcher
@@ -142,6 +135,4 @@ func main() {
 		fmt.Println("Please specify correct version")
 	}
 }
-
-// Youtube link: https://www.youtube.com/watch?v=v9ejT8FO-7I
 
